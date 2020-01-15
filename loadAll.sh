@@ -16,7 +16,7 @@
    
 if [[ -z $FANCYSCRIPTS_LOADED ]]
 then
-  export FANCYSCRIPTS_LOADED=TRUE
+  FANCYSCRIPTS_LOADED=TRUE
 else
   echo "Scripts already loaded."
   exit 0

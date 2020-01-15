@@ -15,12 +15,6 @@
 #  limitations under the License.
    
 
-declare -a commits=("hash1  message 1"
-"hash2  message 2"
-"hash3  message 3"
-"hash4  message 4"
-"hash5  message 5")
-
 function replicate(){
   olddir=$1
   newdidr=$2
@@ -42,21 +36,30 @@ function replicate(){
 }
 
 
-##assume old and new dir are siblings
-olddir="dir1"
-newdir="dir2"
 
-rm -fr $newdir && mkdir -p $newdir
-(cd $newdir && git init)
+function copyGitCommits(){
 
-for commit in "${commits[@]}"
-do
-  hash=${commit%% *}
-  message=${commit#* }
-  echo HASH: $hash
-  echo MESSAGE: $message
- 
-  replicate $olddir $newdir $hash "${message}"
+  declare -a commits=("hash1  message 1"
+  "hash2  message 2"
+  "hash3  message 3"
+  "hash4  message 4"
+  "hash5  message 5")
   
-done
+  ##assume old and new dir are siblings
+  olddir="dir1"
+  newdir="dir2"
 
+  rm -fr $newdir && mkdir -p $newdir
+  (cd $newdir && git init)
+
+  for commit in "${commits[@]}"
+  do
+    hash=${commit%% *}
+    message=${commit#* }
+    echo HASH: $hash
+    echo MESSAGE: $message
+  
+    replicate $olddir $newdir $hash "${message}"
+    
+  done
+}
