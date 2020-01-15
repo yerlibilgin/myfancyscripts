@@ -13,19 +13,14 @@
 #  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 #  See the License for the specific language governing permissions and
 #  limitations under the License.
-   
-if [[ -z $FANCYSCRIPTS_LOADED ]]
-then
-  FANCYSCRIPTS_LOADED=TRUE
-else
-  echo "Scripts already loaded."
-  exit 0
-fi
 
-
+thisScript=`basename "$0"`
 for m in *.sh
 do
-  echo "Loading $m"
-   . $m
+  if [[ $m != $thisScript ]]
+  then
+    echo "Loading $m"
+    . $m
+  fi
 done
 
