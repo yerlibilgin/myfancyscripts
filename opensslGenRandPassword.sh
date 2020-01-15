@@ -14,19 +14,14 @@
 #  See the License for the specific language governing permissions and
 #  limitations under the License.
 
-# Only MacOS
 
-# Forward IP to localhost
-# @param1: IP to be forwardedSample usage:
-#  ipFwdLocalhost 12.0.1.2
-#  this will forward 12.0.1.2 to localhost
-alias ipFwdLocalhost='sudo ifconfig lo0 alias '
+function randPwd() {
+  count=16
+  
+  if [[ $# > 0 ]]
+  then
+    count=$1
+  fi
 
-# Disable ip forwarding
-# @param1: IP to be disabled for forwarding
-# Sample:
-#  disableFwdLocalhost 12.0.1.2
-#  this will forward 12.0.1.2 to localhost
-alias disableFwdLocalhost='sudo ifconfig lo0 -alias '
-
-# the minus prepended to alias works as a minus
+  openssl rand -base64 $count
+}

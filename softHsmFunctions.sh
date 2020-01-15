@@ -15,28 +15,57 @@
 ## limitations under the License.
 
 
-function pfxtop8(){
-   openssl pkcs12 -in $1 -nocerts -nodes -out tmp.pem
-   openssl pkcs8 -topk8 -inform PEM -outform DER -in tmp.pem -out $2 -nocrypt
-   rm -fr tmp.pem
+#!bin/bash
+
+alias softp11='pkcs11-tool --module /usr/local/lib/softhsm/libsofthsm2.so'
+alias slots='softhsm2-util --show-slots'
+alias deleteToken='softhsm2-util --delete-token --token '
+
+function initSlot(){
+    slot=$1
+    label=$2
+    softhsm2-util --init-token --slot=$slot --label $2 --pin $PIN --so-pin $SO_PIN
 }
 
+function signRSA(){
+    tokenLabel=$1
+    label=$2
+    inputfile=$3
+    outputfile=$4
+    softp11 --token-label $tokenLabel -s -a $label -m  \
+           SHA256-RSA-PKCS -i $inputfile -o $outputfile;
+}
+
+function pfx2Pkcs8(){
+    pfxFile=$1
+    pkcs8File=$2
+    openssl pkcs12 -in $pfxFile -nocerts -nodes -out tmp.pem
+    openssl pkcs8 -topk8 -inform PEM -outform DER -in tmp.pem -out $pkcs8File -nocrypt
+    rm -fr tmp.pem
+}
 
 function importCert(){
-  softp11 -l --slot $1 -w $2 -y cert -a $3
+    tokenLabel=$1
+    certFile=$2
+    alias=$3
+    softp11 -p $PIN --token-label $tokenLabel -w $certFile -y cert -a $alias
 }
-
 
 function importKey(){
-  softp11 -l --slot $1 -w $2 -y privkey -a $3
+    tokenLabel=$1
+    keyFile=$2
+    alias=$3
+    softp11 -p $PIN --token-label $tokenLabel -w $keyFile -y privkey -a $alias
 }
 
-
 function deleteObject(){
-  #$1: slot, $2: type, $3: label
-  softp11 -l --slot $1 -b --type $2 -a $3  
+    tokenLabel=$1
+    objectType=$2
+    alias=$3
+    softp11 -p $PIN --token-label $tokenLabel -b --type $objectType -a $alias  
 }
 
 function listObjects(){
-  softp11 -l --slot $1 -O
+    tokenLabel=$1
+    softp11 -p $PIN --token-label $tokenLabel -O
 }

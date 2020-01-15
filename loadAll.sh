@@ -13,20 +13,19 @@
 #  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 #  See the License for the specific language governing permissions and
 #  limitations under the License.
+   
+if [[ -z $FANCYSCRIPTS_LOADED ]]
+then
+  export FANCYSCRIPTS_LOADED=TRUE
+else
+  echo "Scripts already loaded."
+  exit 0
+fi
 
-# Only MacOS
 
-# Forward IP to localhost
-# @param1: IP to be forwardedSample usage:
-#  ipFwdLocalhost 12.0.1.2
-#  this will forward 12.0.1.2 to localhost
-alias ipFwdLocalhost='sudo ifconfig lo0 alias '
+for m in *.sh
+do
+  echo "Loading $m"
+   . $m
+done
 
-# Disable ip forwarding
-# @param1: IP to be disabled for forwarding
-# Sample:
-#  disableFwdLocalhost 12.0.1.2
-#  this will forward 12.0.1.2 to localhost
-alias disableFwdLocalhost='sudo ifconfig lo0 -alias '
-
-# the minus prepended to alias works as a minus
