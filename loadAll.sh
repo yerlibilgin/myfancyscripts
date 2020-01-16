@@ -14,8 +14,17 @@
 #  See the License for the specific language governing permissions and
 #  limitations under the License.
 
-thisScript=`basename "$0"`
-for m in *.sh
+if [[ ! -z $FANCY_SCRIPTS_LOADED ]]
+then 
+   echo "Already loaded"
+   return 0
+fi
+
+SCRIPTPATH="$( cd "$(dirname "$0")" ; pwd -P )"
+echo $SCRIPTPATH
+export FANCY_SCRIPTS_LOADED=1
+
+for m in $SCRIPTPATH/*.sh
 do
   if [[ $m != $thisScript ]]
   then
