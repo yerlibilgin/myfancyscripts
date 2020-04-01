@@ -96,4 +96,15 @@ function gitGC(){
 }
 
 
+function purgeTag(){
+  tag=$1
 
+  if [ $# != 1 ]
+  then
+     echo "Please specify the tag name"
+     return 1
+  fi
+
+  git tag -d $tag
+  git push --delete origin $tag
+}
