@@ -14,23 +14,26 @@
 #  See the License for the specific language governing permissions and
 #  limitations under the License.
 
-#if [[ -z $FANCY_SCRIPTS_LOADED ]]
-#then 
+# use a level to avoid stackoverflow
+level=$1
+if [[ -z $level ]]; then
+  level=0
+fi
+
+if [[ $level == 1 ]]; then
+  return
+fi
+
+level=$(( level + 1))
+
 SCRIPTPATH="$( cd "$(dirname "$0")" ; pwd -P )"
 echo $SCRIPTPATH
-export FANCY_SCRIPTS_LOADED=1
 
 for m in $SCRIPTPATH/*.sh
 do
-  if [[ $m != $thisScript ]]
+  if [[ $m != "loadlAll.sh" ]]
   then
     echo "Loading $m"
-    . $m
+    . $m $level
   fi
 done
-#else
-#  echo "Already loaded"
-#fi
-
-
-

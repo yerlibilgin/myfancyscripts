@@ -19,6 +19,7 @@
 alias drmexited='docker ps -f status=exited -q | xargs docker rm'
 alias lsuntagged='docker images | grep none | awk "{print \$3}"'
 alias drmuntagged='docker images | grep none | awk "{print \$3}" | xargs docker rmi'
+alias dps='docker ps -a --format "{{.ID}}::{{.Names}}"'
 alias dpsa='docker ps -a'
 alias dkillall='docker ps -aq | xargs docker kill'
 alias dstopall='docker ps -aq | xargs docker stop'
@@ -26,7 +27,6 @@ alias drmcreated='docker ps -f status=created -q | xargs docker rm'
 alias dcdown='docker-compose down'
 alias dcup='docker-compose up'
 alias getcontainerip="docker inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}'"
-alisa dps='docker ps -a --format "{{.ID}}::{{.Names}}"'
 
 function deleteAllVolumes(){
   for m in `docker volume ls -q`
