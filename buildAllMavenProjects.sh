@@ -45,3 +45,32 @@ function buildAllMavenProjects(){
       fi
    done
 }
+
+
+function listAllMavenProjects(){
+  theDirs=""
+   for m in *
+   do
+     if [[ -d $m ]]
+     then
+        ( cd $m
+          if [[ -r pom.xml ]]
+          then
+             echo `pwd`
+             theDirs="$theDirs $m"
+             return $?
+          fi
+        )
+
+        ret=$?
+        if [[ $ret != 0 ]]
+        then
+          echo "Build $m failed"
+          return $ret;
+        fi
+      fi
+   done
+
+    echo $theDirs;
+    return 0;
+}
