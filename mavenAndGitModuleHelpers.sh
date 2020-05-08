@@ -14,8 +14,6 @@
 #  See the License for the specific language governing permissions and
 #  limitations under the License.
 
-echo "maven and git module helper functions"
-
 colorCode="\e[47m\e[91m\e[4m"
 resetCode="\e[0m"
 allFolders=("module1" "module2" "module3")

@@ -14,28 +14,39 @@
 #  See the License for the specific language governing permissions and
 #  limitations under the License.
 
-# use a level to avoid stackoverflow
-level=$1
-if [[ -z $level ]]; then
-  level=0
-fi
 
-if [[ $level == 1 ]]; then
-  return
-fi
+# This script contains colorful variants of echo
 
-echo "Load @yerlibilgin fancyscripts. See https://github.com/yerlibilgin/myfancyscripts/"
 
-level=$(( level + 1))
+redColor="\e[31m"
+yellowColor="\e[93m"
+greenColor="\e[32m"
+blueColor="\e[34m"
+cyanColor="\e[36m"
+magentaColor="\e[35m"
+resetCode="\e[0m"
 
-SCRIPTPATH="$( cd "$(dirname "$0")" ; pwd -P )"
-#echo $SCRIPTPATH
+function echoRed(){
+  echo "${redColor}$@${resetCode}"
+}
 
-for m in $SCRIPTPATH/*.sh
-do
-  if [[ $m != "loadlAll.sh" ]]
-  then
-    #echo "Loading $m"
-    . $m $level
-  fi
-done
+
+function echoYellow(){
+  echo "${yellowColor}$@${resetCode}"
+}
+
+function echoGreen(){
+  echo "${greenColor}$@${resetCode}"
+}
+
+function echoBlue(){
+  echo "${blueColor}$@${resetCode}"
+}
+
+function echoCyan(){
+  echo "${cyanColor}$@${resetCode}"
+}
+
+function echoMagenta(){
+  echo "${magentaColor}$@${resetCode}"
+}
