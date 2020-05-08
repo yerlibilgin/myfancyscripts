@@ -108,3 +108,8 @@ function purgeTag(){
   git tag -d $tag
   git push --delete origin $tag
 }
+
+
+
+alias glg='git log --stat --graph --abbrev-commit --all'
+alias gca='git commit -a'
