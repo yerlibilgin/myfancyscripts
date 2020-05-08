@@ -28,6 +28,10 @@ alias dcdown='docker-compose down'
 alias dcup='docker-compose up'
 alias getcontainerip="docker inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}'"
 
+##careful!!! dc arbitrary precision calculator is overridden here
+alias dc='docker-compose'
+
+
 function deleteAllVolumes(){
   for m in `docker volume ls -q`
   do
