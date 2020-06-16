@@ -16,48 +16,44 @@
 
 colorCode="\e[47m\e[91m\e[4m"
 resetCode="\e[0m"
-allFolders=("module1" "module2" "module3")
 
 # the modules (i.e. the folders) that each of the below
-# commands will loop on
+# commands will loop on. Currently it finds and
+# returns ALL FOLDERS that contain a pom.xml. 
+# Since the order is alphabetically, it might not work
+# for you since you might have precedence between your
+# modules. So I recommnd that you implement your own.
+# 
+# please write your own allModules
+# function to OVERRIDE this one 
+# so that your function is used when 
+# listing/iterating through relevant modules
 function allModules(){
-  # do a simple ls
-  ls
+  dirs=""
 
-  # or return data directly.
-  # echo $allFolders
+  for m in `ls`; do
+    if [[ -e $m/pom.xml ]] then
+      dirs="$dirs $m"
+    fi
+  done
+
+  echo $dirs
 }
-
-# Set a version ($1) with a default version message,
-#  then deploy, tag and push all
-function releaseVersion(){
-  version=$1
-  mvn deploy && git commit -a -m"$version" && git push && git tag "$version" && git push --tags
-}
-
-
-# Set a version ($1) with a default version message,
-#  then deploy and push all (no tagging this time) and different message
-function newDevVersion(){
-  version=$1
-  mvn deploy && git commit -a -m"new development version $version" && git push
-}
-
 
 # Run mvn install on all the modules. Stop on the first error
 function installAll() {
-  for m in `allModules()`; do
+  for m in `allModules`; do
     (
       cd $m || exit $?
       echo "${colorCode} Install $m ${resetCode}" 
-      mvn --offline install || exit $?
+      mvn install || exit $?
     ) || break
   done
 }
 
 # Run mvn deploy on all the modules. Stop on the first error
 function deployAll() {
-  for m in `allModules()`; do
+  for m in `allModules`; do
     (
       cd $m || exit $?
       echo "${colorCode} Deploy $m ${resetCode}" 
@@ -69,11 +65,11 @@ function deployAll() {
 
 # Run mvn clean on all the modules. Stop on the first error
 function cleanAll() {
-  for m in `allModules()`; do
+  for m in `allModules`; do
     (
       cd $m || exit $?
       echo "${colorCode} Clean $m ${resetCode}" 
-      mvn --offline clean || exit $?
+      mvn clean || exit $?
     ) || break
   done
 }
@@ -92,7 +88,7 @@ function statusAll() {
 
 # Run git log with graph on all the modules. Stop on the first error
 function glgAll() {
-  for m in `allModules()`; do
+  for m in `allModules`; do
     (
       cd $m || exit $?
       echo "${colorCode} Log $m ${resetCode}" 
@@ -103,7 +99,7 @@ function glgAll() {
 
 # Run git push -all on all the modules. Stop on the first error
 function pushAll() {
-  for m in `allModules()`; do
+  for m in `allModules`; do
     (
       cd $m || exit $?
       echo "${colorCode} Push $m ${resetCode}" 
@@ -114,7 +110,7 @@ function pushAll() {
 
 # Run git pull -all on all the modules. Stop on the first error
 function pullAll() {
-  for m in `allModules()`; do
+  for m in `allModules`; do
     (
       cd $m || exit $?
       echo "${colorCode} Pull $m ${resetCode}" 
@@ -126,7 +122,7 @@ function pullAll() {
 # Run git commit on all the modules with $1 as the message. 
 # Stop on the first error
 function commitAll() {
-  for m in `allModules()`; do
+  for m in `allModules`; do
     (
       cd $m || exit $?
       echo "${colorCode} Commit $m ${resetCode}" 
@@ -137,7 +133,7 @@ function commitAll() {
 
 # Run git remote -v on all the modules. Stop on the first error
 function printRemotes() {
-  for m in `allModules()`; do
+  for m in `allModules`; do
     (
       cd $m || exit $?
       echo "${colorCode} PrintRemote $m ${resetCode}" 
