@@ -46,7 +46,7 @@ function installAll() {
     (
       cd $m || exit $?
       echo "${colorCode} Install $m ${resetCode}" 
-      mvn install || exit $?
+      mvn clean install || exit $?
     ) || break
   done
 }
