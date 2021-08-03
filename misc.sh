@@ -15,5 +15,5 @@
 #  limitations under the License.
 
 
-
-alias ultra7ze='7z a -t7z -m0=lzma2 -mx=9 -mfb=64 -md=32m -ms=on -mhe=on -p'
+alias ultra7z='7z a -t7z -m0=lzma2 -mx=9 -mfb=64 -md=32m -ms=on'
+alias ultra7ze='7z a -t7z -m0=lzma2 -mx=9 -mfb=64 -md=32m -ms=on -mhe=on'
