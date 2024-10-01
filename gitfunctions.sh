@@ -111,5 +111,7 @@ function purgeTag(){
 
 
 
-alias glg='git log --stat --graph --abbrev-commit --all'
+alias glg='git log --graph --abbrev-commit --all'
 alias gca='git commit -a'
+alias gitamend='git commit --amend --no-edit'
+alias gsfor='git submodule foreach'

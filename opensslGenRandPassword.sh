@@ -25,3 +25,15 @@ function randPwd() {
 
   openssl rand -base64 $count
 }
+
+
+function randHex() {
+  count=16
+
+  if [[ $# > 0 ]]
+  then
+    count=$1
+  fi
+
+  openssl rand -hex $count | tr '[:lower:]' '[:upper:]'
+}
