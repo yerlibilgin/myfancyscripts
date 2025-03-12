@@ -1,6 +1,6 @@
 #!/bin/bash
 
-#  Copyright 2020 yerlibilgin
+#  Copyright 2025 yerlibilgin
 #
 #  Licensed under the Apache License, Version 2.0 (the "License");
 #  you may not use this file except in compliance with the License.
@@ -114,4 +114,21 @@ function purgeTag(){
 alias glg='git log --graph --abbrev-commit --all'
 alias gca='git commit -a'
 alias gitamend='git commit --amend --no-edit'
+
+
+#A foreach template for git submodules
 alias gsfor='git submodule foreach'
+# git status for all submodules
+alias gsst='git submodule foreach git status'
+
+#Stage all submodules
+alias gsadd='git submodule foreach git add .'
+# Push All Submodules
+alias gspush='git submodule foreach git push'
+alias gspull='git submodule foreach git pull'
+
+function gscommit(){
+  #Echo is for the command to finish its looping
+  #without halting due to submodules with no changes
+  git submodule foreach "git commit -m\"${1}\" || echo"
+}

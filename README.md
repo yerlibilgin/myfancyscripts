@@ -14,7 +14,7 @@ Run:
 
 Use with caution. **I don't accept any responsibility if you harm your PC by using my scripts**. The scripts are [APACHE 2.0 LICENSE](./LICENSE)
 
-Copyright 2020 [yerlibilgin](https://github.com/yerlibilgin)
+Copyright 2025 [yerlibilgin](https://github.com/yerlibilgin)
 
 Licensed under the Apache License, Version 2.0 (the "License");  
 you may not use this file except in compliance with the License.  

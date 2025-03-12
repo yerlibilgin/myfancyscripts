@@ -17,3 +17,12 @@
 
 alias ultra7z='7z a -t7z -m0=lzma2 -mx=9 -mfb=64 -md=32m -ms=on'
 alias ultra7ze='7z a -t7z -m0=lzma2 -mx=9 -mfb=64 -md=32m -ms=on -mhe=on'
+
+
+
+# Copy the current path to system clipboard
+# TESTED on MacOS
+function pathcopy(){
+  realpath $1 | pbcopy
+}
+
