@@ -25,7 +25,7 @@ alias dkillall='docker ps -aq | xargs docker kill'
 alias dstopall='docker ps -aq | xargs docker stop'
 alias drmcreated='docker ps -f status=created -q | xargs docker rm'
 ##careful!!! dc arbitrary precision calculator is overridden here
-alias dc='docker-compose'
+alias dc='docker compose'
 alias dcdown='dc down'
 alias dcup='dc up'
 alias dclogs='dc logs -f'
