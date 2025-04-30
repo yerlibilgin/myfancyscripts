@@ -127,8 +127,16 @@ alias gsadd='git submodule foreach git add .'
 alias gspush='git submodule foreach git push'
 alias gspull='git submodule foreach git pull'
 
-function gscommit(){
-  #Echo is for the command to finish its looping
-  #without halting due to submodules with no changes
-  git submodule foreach "git commit -m\"${1}\" || echo"
+function gscommit() {
+    if [ -z "$1" ]; then
+        echo "Error: Commit message cannot be empty" >&2
+        return 1
+    fi
+
+    # Escape quotes in the commit message
+    local escaped_msg
+    escaped_msg=$(printf '%s' "$1" | sed 's/"/\\"/g')
+
+    # Commit in each submodule (ignore errors if nothing to commit)
+    git submodule foreach "git commit -m\"$escaped_msg\" || :"
 }
