@@ -121,11 +121,37 @@ alias gsfor='git submodule foreach'
 # git status for all submodules
 alias gsst='git submodule foreach git status'
 
+alias gsupdate='git submodule update'
+alias gsinit='git submodule init'
+
 #Stage all submodules
 alias gsadd='git submodule foreach git add .'
 # Push All Submodules
 alias gspush='git submodule foreach git push'
 alias gspull='git submodule foreach git pull'
+
+# Checkout to the provided head for all submodules
+# If the head exists, otherwise silently SKIP to the
+# next submodule
+function gscheckout() {
+  if [ -z "$1" ]; then
+    echo "Error: Checkout reference cannot be empty"
+    return 1
+  fi
+
+  local ref="$1"
+
+  # Checkout the submodule to version, otherwise skip
+  gsfor "
+    echo Trying \$name for '$ref'
+    if git rev-parse --verify --quiet '$ref^{commit}' >/dev/null; then
+      git checkout '$ref'
+    else
+      echo 'Skipping \$name: reference $ref not found'
+    fi
+  "
+}
+
 
 function gscommit() {
     if [ -z "$1" ]; then
