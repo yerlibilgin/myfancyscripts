@@ -141,3 +141,8 @@ function printRemotes() {
     ) || break
   done
 }
+
+
+# git show log for a specific branch
+# https://stackoverflow.com/a/39586986/1644618
+alias gitlogexclusive='git log --graph --abbrev-commit --decorate  --first-parent'
